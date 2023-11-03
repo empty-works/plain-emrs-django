@@ -2,10 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import Permission
+from phone_field import PhoneField
 
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=75, primary_key=True, null=False, blank=False)
-    email_address = models.CharField(max_length=254, default="No email", null=False, blank=True)
+    email_address = models.EmailField(max_length=254, default="No email", null=False, blank=True)
+    phone_number = PhoneField(blank=True, help_text='Contact phone number')
     enabled = models.BooleanField(default=False, null=False)
     created_on = models.DateTimeField(auto_now=False, auto_now_add=False, null=False)
     # Add a related_name to prevent conflicts
