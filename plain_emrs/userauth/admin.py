@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from models import AuthUser 
+from userauth.models import AuthUser 
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required fields,
@@ -43,7 +43,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = AuthUser
-        fields = ["user_id", "date_of_birth", "is_active", "is_admin", "email", "created_on", "first_name", "last_name"]
+        fields = ["user_id", "date_of_birth", "is_active", "is_admin", "email", "first_name", "last_name"]
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
