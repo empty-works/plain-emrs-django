@@ -2,24 +2,30 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 class AuthManager(BaseUserManager):
-    def create_user(self, user_id, date_of_birth, password=None):
+    def create_user(self, user_id, date_of_birth, email, first_name, last_name, password=None):
         if not user_id:
             raise ValueError("Users must have a user ID")
 
         user = self.model(
                 user_id=user_id,
                 date_of_birth=date_of_birth,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, user_id, date_of_birth, password=None):
+    def create_superuser(self, user_id, email, date_of_birth, first_name, last_name, password=None):
         user = self.create_user(
                 user_id,
                 password=password,
                 date_of_birth=date_of_birth,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -42,7 +48,7 @@ class AuthUser(AbstractBaseUser):
     objects = AuthManager()
 
     USERNAME_FIELD = "user_id"
-    REQUIRED_FIELDS = ["date_of_birth", "first_name", "last_name"]
+    REQUIRED_FIELDS = ["date_of_birth", "email", "first_name", "last_name"]
 
     def __str__(self):
         return self.email
