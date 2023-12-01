@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 class AuthManager(BaseUserManager):
     def create_user(self, user_id, date_of_birth, email, first_name, last_name, password=None):

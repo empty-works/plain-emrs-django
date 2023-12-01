@@ -57,7 +57,7 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = [
         (None, {"fields": ["user_id", "password"]}),
         ("Personal info", {"fields": ["date_of_birth", "first_name", "last_name"]}),
-        ("Permissions", {"fields": ["is_admin"]}),
+        ("Permissions", {"fields": ["is_admin", "groups"]}),
     ]    
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin overrides get_fieldsets to use this
     # attribute when creating a user.
@@ -76,4 +76,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(AuthUser, UserAdmin)
 # Unregister the Group model from admin because Django's built-in permissions are not being used.
-admin.site.unregister(Group)
+#admin.site.unregister(Group)
