@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-	</head>
+{% extends "base_profile.html" %}
 
-	<body>
-		INDEX TEST
-	</body>
-</html>
+{% block sidebar %}
+{% if user.is_staff %}
+
+<li>Staff</li>
+
+{% if perms.register_user %}
+
+	<li><a href="{% url 'create-authuser' %}"></a></li>
+
+{% endif %}
+
+{% endif %}
+{% endblock %}
+
+{% block content %}
+	<p>INDEX TEST!!!!</p>
+{% endblock %}

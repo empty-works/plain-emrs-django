@@ -1,0 +1,5 @@
+{% extends "base_profile.html" %}
+
+{% block content %}
+	<p>INDEX TEST!!!!</p>
+{% endblock %}

@@ -100,6 +100,12 @@ class Command(BaseCommand):
             content_type=self.content_type,
         )
 
+        register_user, created = Permission.objects.get_or_create(
+            codename='register_user',
+            name='Can register any user',
+            content_type=self.content_type,
+        )
+
         view_appointments_permission, created = Permission.objects.get_or_create(
             codename='view_appointments',
             name='Can view appointments',

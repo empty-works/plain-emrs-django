@@ -1,5 +1,5 @@
 {% extends base_generic.html %}
 
 {% block content %}
-	<h1>User successfully added!</h1>
+<h1>User successfully added!</h1>
 {% endblock %}
