@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-	{% block title %}
-	<title>Plain EMRS Profile</title>
-	{% endblock %}
+        {% block title %}
+        <title>Plain EMRS Profile</title>
+        {% endblock %}
     </head>
     
     <body>
-	{% block sidebar %}
-	<ul class="sidebar-nav">
-	</ul>
-	{% endblock %}
-	{% block content %}
-	<!-- default content text (typically empty) -->
-	{% endblock %}
+        {% block sidebar %}
+        <ul class="sidebar-nav">
+        {% if perms.register_user or user.is_staff %}
+            <li><a href="{% url 'userauth:create-authuser' %}">Create user</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+        {% endif %}
+        </ul>
+        {% endblock %}
+        {% block content %}
+        <!-- default content text (typically empty) -->
+        {% endblock %}
     </body>
 </html>

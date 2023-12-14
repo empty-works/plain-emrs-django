@@ -19,8 +19,8 @@
     {% csrf_token %}
     <table>
       <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username}}</td>
+        <td>{{ form.user_id.label_tag }}</td>
+        <td>{{ form.user_id}}</td>
       </tr>
       <tr>
         <td>{{ form.password.label_tag }}</td>

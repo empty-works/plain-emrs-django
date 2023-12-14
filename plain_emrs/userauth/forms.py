@@ -12,4 +12,4 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = AuthUser
-        fields = UserCreationForm.Meta.fields + ('groups',)
+        fields = ('user_id', 'date_of_birth', 'email', 'first_name', 'last_name', 'groups',)
