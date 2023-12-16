@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 class AuthManager(BaseUserManager):
-    def create_user(self, user_id, date_of_birth, email, first_name, last_name, password=None):
+    def create_user(self, user_id, username, date_of_birth, email, first_name, last_name, password=None):
         if not user_id:
             raise ValueError("Users must have a user ID")
 
         user = self.model(
                 user_id=user_id,
+                username=username,
                 date_of_birth=date_of_birth,
                 email=email,
                 first_name=first_name,
@@ -33,6 +34,7 @@ class AuthManager(BaseUserManager):
 
 class AuthUser(AbstractBaseUser):
     user_id = models.CharField(max_length=75, unique=True) 
+    username = models.CharField(max_length=75)
     date_of_birth = models.DateField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -48,7 +50,7 @@ class AuthUser(AbstractBaseUser):
     objects = AuthManager()
 
     USERNAME_FIELD = "user_id"
-    REQUIRED_FIELDS = ["date_of_birth", "email", "first_name", "last_name"]
+    REQUIRED_FIELDS = ["username", "date_of_birth", "email", "first_name", "last_name"]
 
     def __str__(self):
         return self.email
