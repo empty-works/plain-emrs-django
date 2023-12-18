@@ -4,19 +4,35 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
+import datetime
+from datetime import datetime
 
-from userauth.models import AuthUser 
+from .models import AuthUser 
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required fields,
     a repeated password."""
+    groups = forms.ModelMultipleChoiceField(
+        queryset=Group.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
+
+    this_year = datetime.today().year
+    year_range = [x for x in range(this_year - 120, this_year + 1)]
+    date_of_birth = forms.DateField(help_text="Enter date of birth", 
+                                    label="Birth year: ", 
+                                    widget=forms.SelectDateWidget(years=year_range))
+    email = forms.EmailField()
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Password confirmation", widget=forms.PasswordInput)
 
     class Meta:
         model = AuthUser
-        fields = ["user_id", "date_of_birth"]
+        fields = ["user_id", "date_of_birth", "email", "first_name", "last_name"]
 
     def clean_password2(self):
         # Check that the two passwords match
