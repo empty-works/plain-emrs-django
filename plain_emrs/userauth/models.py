@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin, Group
 
 class AuthManager(BaseUserManager):
     def create_user(self, user_id, date_of_birth, email, first_name, last_name, password=None):
@@ -44,6 +44,8 @@ class AuthUser(AbstractBaseUser):
     created_on = models.DateTimeField(auto_now=False, auto_now_add=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+
+    groups = models.ManyToManyField(Group, blank=True)
     
     objects = AuthManager()
 
@@ -65,4 +67,3 @@ class AuthUser(AbstractBaseUser):
     def is_staff(self):
         "Is the user a member of staff?"
         return self.is_admin
-

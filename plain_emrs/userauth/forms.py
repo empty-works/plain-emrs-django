@@ -49,7 +49,9 @@ class CustomUserCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        # Set other fields
+        user.save()
+        # Add the user to the selected groups
+        user.groups.set(self.cleaned_data['groups'])
         if commit:
             user.save()
         return user

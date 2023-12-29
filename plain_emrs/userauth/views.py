@@ -10,7 +10,7 @@ class CustomUserCreateView(CreateView):
     model = AuthUser
     form_class = CustomUserCreationForm
     template_name = 'registration/create_user.html'
-    success_url = reverse_lazy('user-created-success')
+    success_url = reverse_lazy('userauth:user-created-success')
 
     def form_valid(self, form):
         response = super().form_valid(form)
